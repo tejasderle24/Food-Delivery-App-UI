@@ -35,7 +35,7 @@ export default function RootStack() {
         name="Onboarding"
         component={OnboardingScreen}
         options={{
-          title: 'Welcome',
+          headerShown: false,
         }}
       />
 
