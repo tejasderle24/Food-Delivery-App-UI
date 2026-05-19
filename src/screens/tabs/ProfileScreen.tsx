@@ -1,14 +1,5 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import ProfileDrawer from '../../navigation/drawer/ProfileDrawer';
 
-const ProfileScreen = () => {
-  return (
-    <View>
-      <Text>ProfileScreen</Text>
-    </View>
-  )
+export default function ProfileScreen() {
+  return <ProfileDrawer />;
 }
-
-export default ProfileScreen
-
-const styles = StyleSheet.create({})
