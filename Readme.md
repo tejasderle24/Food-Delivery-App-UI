@@ -88,14 +88,13 @@ Expected behavior:
 - `route.params.restaurantId` is `"123"`
 
 ## Screenshots (Optional)
-Add screenshots to a folder like `docs/screenshots/`, then reference them here:
+Add screenshots to a folder like `assest/screenshots/`, then reference them here:
 
 ```md
-![Onboarding](docs/screenshots/onboarding.png)
-![Home](docs/screenshots/home.png)
-![Restaurant Detail](docs/screenshots/restaurant-detail.png)
-![Cart](docs/screenshots/cart.png)
-![Profile Drawer](docs/screenshots/profile-drawer.png)
+![Home](assets/screenshort/home.jpg)
+![Restaurant Detail](assets/screenshort/restorent%20detilas.jpg)
+![Cart](assets/screenshort/cart.png)
+![Profile Drawer](assets/screenshort/profile-drawer.png)
 ```
 
 Suggested screenshots:
