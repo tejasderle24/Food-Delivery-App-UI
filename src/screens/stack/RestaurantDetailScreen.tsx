@@ -1,4 +1,5 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 import { useCart } from '../../context/CartContext';
 import { MenuItem, restaurants } from '../../data/restaurants';
@@ -22,6 +23,10 @@ function MenuCard({ menuItem, quantity, onAdd, onIncrement, onDecrement }: MenuC
         <Text style={styles.menuPrice}>Rs. {menuItem.price}</Text>
       </View>
       <Text style={styles.menuDescription}>{menuItem.description}</Text>
+      <View style={styles.menuMetaRow}>
+        <Text style={styles.menuMetaText}>Freshly prepared</Text>
+        <Text style={styles.menuMetaText}>~20 min</Text>
+      </View>
 
       {quantity === 0 ? (
         <Pressable style={styles.addButton} onPress={onAdd}>
@@ -67,7 +72,15 @@ export default function RestaurantDetailScreen({ navigation, route }: Props) {
             <Text style={styles.meta}>
               {restaurant.category} | {restaurant.deliveryTime}
             </Text>
-            <Text style={styles.meta}>{restaurant.offer}</Text>
+            <View style={styles.badgeRow}>
+              <View style={styles.offerBadge}>
+                <Text style={styles.offerText}>{restaurant.offer}</Text>
+              </View>
+              <View style={styles.ratingBadge}>
+                <Ionicons name="star" size={12} color="#f59e0b" />
+                <Text style={styles.ratingText}>{restaurant.rating}</Text>
+              </View>
+            </View>
           </View>
         }
         renderItem={({ item }) => {
@@ -94,11 +107,11 @@ export default function RestaurantDetailScreen({ navigation, route }: Props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#f8fafc',
   },
   emptyContainer: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#f8fafc',
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
@@ -109,10 +122,10 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   headerCard: {
-    backgroundColor: '#fff4ef',
-    borderColor: '#ffd7c8',
+    backgroundColor: '#ffffff',
+    borderColor: '#e5e7eb',
     borderWidth: 1,
-    borderRadius: 14,
+    borderRadius: 12,
     padding: 14,
     marginBottom: 8,
   },
@@ -123,8 +136,41 @@ const styles = StyleSheet.create({
   },
   meta: {
     marginTop: 6,
-    fontSize: 14,
-    color: '#374151',
+    fontSize: 13,
+    color: '#6b7280',
+  },
+  badgeRow: {
+    marginTop: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  offerBadge: {
+    backgroundColor: '#fff4ef',
+    borderWidth: 1,
+    borderColor: '#ffd7c8',
+    borderRadius: 999,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+  },
+  offerText: {
+    color: '#ff6b35',
+    fontWeight: '700',
+    fontSize: 12,
+  },
+  ratingBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    backgroundColor: '#f3f4f6',
+    borderRadius: 999,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+  },
+  ratingText: {
+    color: '#111827',
+    fontWeight: '700',
+    fontSize: 12,
   },
   menuCard: {
     borderWidth: 1,
@@ -153,6 +199,19 @@ const styles = StyleSheet.create({
     marginTop: 6,
     fontSize: 13,
     color: '#4b5563',
+  },
+  menuMetaRow: {
+    marginTop: 8,
+    flexDirection: 'row',
+    gap: 8,
+  },
+  menuMetaText: {
+    fontSize: 11,
+    color: '#6b7280',
+    backgroundColor: '#f3f4f6',
+    borderRadius: 999,
+    paddingHorizontal: 8,
+    paddingVertical: 3,
   },
   addButton: {
     marginTop: 12,

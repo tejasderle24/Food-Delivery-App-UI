@@ -24,10 +24,17 @@ export default function CartScreen() {
         data={items}
         keyExtractor={(item) => item.item.id}
         contentContainerStyle={styles.list}
-        ListHeaderComponent={<Text style={styles.title}>Your Cart</Text>}
+        ListHeaderComponent={
+          <View>
+            <Text style={styles.title}>Your Cart</Text>
+            <Text style={styles.subtitle}>Review items before checkout</Text>
+          </View>
+        }
         renderItem={({ item }) => (
           <View style={styles.card}>
-            <Text style={styles.restaurantName}>{item.restaurantName}</Text>
+            <View style={styles.restaurantTag}>
+              <Text style={styles.restaurantName}>{item.restaurantName}</Text>
+            </View>
             <View style={styles.row}>
               <View>
                 <Text style={styles.itemName}>{item.item.name}</Text>
@@ -47,7 +54,13 @@ export default function CartScreen() {
         )}
       />
       <View style={styles.totalBar}>
-        <Text style={styles.totalText}>Total: Rs. {totalAmount}</Text>
+        <View>
+          <Text style={styles.totalLabel}>Total</Text>
+          <Text style={styles.totalText}>Rs. {totalAmount}</Text>
+        </View>
+        <Pressable style={styles.checkoutButton}>
+          <Text style={styles.checkoutButtonText}>Checkout</Text>
+        </Pressable>
       </View>
     </View>
   );
@@ -56,13 +69,13 @@ export default function CartScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#f8fafc',
   },
   emptyContainer: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: '#f8fafc',
     paddingHorizontal: 20,
   },
   title: {
@@ -72,12 +85,13 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   subtitle: {
-    fontSize: 15,
+    fontSize: 14,
     color: '#6b7280',
+    marginBottom: 10,
   },
   list: {
     padding: 16,
-    paddingBottom: 92,
+    paddingBottom: 110,
     gap: 12,
   },
   card: {
@@ -87,10 +101,20 @@ const styles = StyleSheet.create({
     padding: 14,
     backgroundColor: '#ffffff',
   },
+  restaurantTag: {
+    alignSelf: 'flex-start',
+    backgroundColor: '#fff4ef',
+    borderWidth: 1,
+    borderColor: '#ffd7c8',
+    borderRadius: 999,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    marginBottom: 10,
+  },
   restaurantName: {
     color: '#ff6b35',
     fontWeight: '700',
-    marginBottom: 8,
+    fontSize: 12,
   },
   row: {
     flexDirection: 'row',
@@ -143,12 +167,31 @@ const styles = StyleSheet.create({
     bottom: 16,
     backgroundColor: '#111827',
     borderRadius: 12,
-    paddingVertical: 13,
+    paddingVertical: 12,
+    paddingHorizontal: 12,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  totalLabel: {
+    color: '#9ca3af',
+    fontSize: 12,
+    fontWeight: '600',
   },
   totalText: {
     color: '#fff',
     fontSize: 16,
+    fontWeight: '800',
+  },
+  checkoutButton: {
+    backgroundColor: '#ff6b35',
+    borderRadius: 9,
+    paddingHorizontal: 14,
+    paddingVertical: 9,
+  },
+  checkoutButtonText: {
+    color: '#fff',
     fontWeight: '700',
+    fontSize: 13,
   },
 });
