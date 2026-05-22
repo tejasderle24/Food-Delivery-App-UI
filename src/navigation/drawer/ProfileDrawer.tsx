@@ -120,6 +120,7 @@ export default function ProfileDrawer() {
       )}
       screenOptions={{
         headerTitleAlign: 'center',
+        // headerShown:false
       }}
     >
       <Drawer.Screen
@@ -137,7 +138,7 @@ export default function ProfileDrawer() {
       />
 
       <Drawer.Screen
-        name="Help"
+        name="Help & Support"
         component={HelpScreen}
       />
     </Drawer.Navigator>

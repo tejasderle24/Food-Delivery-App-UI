@@ -9,8 +9,7 @@ export type RootStackParamList = {
   Onboarding: undefined;
   HomeTabs: undefined;
   RestaurantDetail: {
-    restaurantName: string;
-    deliveryPrice: number;
+    restaurantId: string;
   };
   Cart: undefined;
 };
@@ -19,6 +18,6 @@ export type ProfileDrawerParamList = {
   Profile: undefined;
   'My Orders': undefined;
   Settings: undefined;
-  Help: undefined;
+  'Help & Support': undefined;
   Logout: undefined;
 };

@@ -45,13 +45,16 @@
 import 'react-native-gesture-handler';
 
 import { NavigationContainer } from '@react-navigation/native';
+import { CartProvider } from './src/context/CartContext';
 
 import RootStack from './src/navigation/RootStack';
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <RootStack />
-    </NavigationContainer>
+    <CartProvider>
+      <NavigationContainer>
+        <RootStack />
+      </NavigationContainer>
+    </CartProvider>
   );
 }

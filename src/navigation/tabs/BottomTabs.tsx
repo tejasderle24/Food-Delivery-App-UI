@@ -6,12 +6,13 @@ import HomeScreen from '../../screens/tabs/HomeScreen';
 import SearchScreen from '../../screens/tabs/SearchScreen';
 import OrdersScreen from '../../screens/tabs/OrdersScreen';
 import ProfileScreen from '../../screens/tabs/ProfileScreen';
+import { useCart } from '../../context/CartContext';
 import { RootTabParamList } from '../../types/navigation';
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
 
 export default function BottomTabs() {
-  const cartItemCount = 2;
+  const { totalItems } = useCart();
 
   return (
     <Tab.Navigator
@@ -39,7 +40,7 @@ export default function BottomTabs() {
         name="Orders"
         component={OrdersScreen}
         options={{
-          tabBarBadge: cartItemCount > 0 ? cartItemCount : undefined,
+          tabBarBadge: totalItems > 0 ? totalItems : undefined,
         }}
       />
 

@@ -1,21 +1,91 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
+import { useCart } from '../../context/CartContext';
+import { MenuItem, restaurants } from '../../data/restaurants';
 import { RootStackParamList } from '../../types/navigation';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'RestaurantDetail'>;
 
+type MenuCardProps = {
+  menuItem: MenuItem;
+  quantity: number;
+  onAdd: () => void;
+  onIncrement: () => void;
+  onDecrement: () => void;
+};
+
+function MenuCard({ menuItem, quantity, onAdd, onIncrement, onDecrement }: MenuCardProps) {
+  return (
+    <View style={styles.menuCard}>
+      <View style={styles.menuHeader}>
+        <Text style={styles.menuName}>{menuItem.name}</Text>
+        <Text style={styles.menuPrice}>Rs. {menuItem.price}</Text>
+      </View>
+      <Text style={styles.menuDescription}>{menuItem.description}</Text>
+
+      {quantity === 0 ? (
+        <Pressable style={styles.addButton} onPress={onAdd}>
+          <Text style={styles.addButtonText}>Add to Cart</Text>
+        </Pressable>
+      ) : (
+        <View style={styles.quantityWrap}>
+          <Pressable style={styles.qtyButton} onPress={onDecrement}>
+            <Text style={styles.qtyButtonText}>-</Text>
+          </Pressable>
+          <Text style={styles.qtyText}>{quantity}</Text>
+          <Pressable style={styles.qtyButton} onPress={onIncrement}>
+            <Text style={styles.qtyButtonText}>+</Text>
+          </Pressable>
+        </View>
+      )}
+    </View>
+  );
+}
+
 export default function RestaurantDetailScreen({ navigation, route }: Props) {
-  const { restaurantName, deliveryPrice } = route.params;
+  const { restaurantId } = route.params;
+  const restaurant = restaurants.find((item) => item.id === restaurantId);
+  const { addItem, incrementItem, decrementItem, getItemQuantity, totalItems } = useCart();
+
+  if (!restaurant) {
+    return (
+      <View style={styles.emptyContainer}>
+        <Text style={styles.name}>Restaurant not found</Text>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
-      <Text style={styles.name}>{restaurantName}</Text>
-      <Text style={styles.price}>Delivery fee: ₹{deliveryPrice}</Text>
-      <Pressable
-        style={styles.button}
-        onPress={() => navigation.navigate('Cart')}
-      >
-        <Text style={styles.buttonText}>Go to Cart</Text>
+      <FlatList
+        data={restaurant.menu}
+        keyExtractor={(item) => item.id}
+        contentContainerStyle={styles.list}
+        ListHeaderComponent={
+          <View style={styles.headerCard}>
+            <Text style={styles.name}>{restaurant.name}</Text>
+            <Text style={styles.meta}>
+              {restaurant.category} | {restaurant.deliveryTime}
+            </Text>
+            <Text style={styles.meta}>{restaurant.offer}</Text>
+          </View>
+        }
+        renderItem={({ item }) => {
+          const quantity = getItemQuantity(item.id);
+          return (
+            <MenuCard
+              menuItem={item}
+              quantity={quantity}
+              onAdd={() => addItem(restaurant.id, restaurant.name, item)}
+              onIncrement={() => incrementItem(item.id)}
+              onDecrement={() => decrementItem(item.id)}
+            />
+          );
+        }}
+      />
+
+      <Pressable style={styles.cartButton} onPress={() => navigation.navigate('Cart')}>
+        <Text style={styles.cartButtonText}>Go to Cart ({totalItems})</Text>
       </Pressable>
     </View>
   );
@@ -25,29 +95,121 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    padding: 20,
-    justifyContent: 'center',
   },
-  name: {
-    fontSize: 28,
-    fontWeight: '800',
-    color: '#111827',
+  emptyContainer: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
+  },
+  list: {
+    padding: 16,
+    paddingBottom: 92,
+    gap: 12,
+  },
+  headerCard: {
+    backgroundColor: '#fff4ef',
+    borderColor: '#ffd7c8',
+    borderWidth: 1,
+    borderRadius: 14,
+    padding: 14,
     marginBottom: 8,
   },
-  price: {
-    fontSize: 18,
-    color: '#374151',
-    marginBottom: 24,
+  name: {
+    fontSize: 24,
+    fontWeight: '800',
+    color: '#111827',
   },
-  button: {
+  meta: {
+    marginTop: 6,
+    fontSize: 14,
+    color: '#374151',
+  },
+  menuCard: {
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
+    borderRadius: 12,
+    padding: 14,
+    backgroundColor: '#ffffff',
+  },
+  menuHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    gap: 8,
+  },
+  menuName: {
+    flex: 1,
+    fontSize: 16,
+    fontWeight: '700',
+    color: '#111827',
+  },
+  menuPrice: {
+    fontSize: 15,
+    fontWeight: '700',
+    color: '#ff6b35',
+  },
+  menuDescription: {
+    marginTop: 6,
+    fontSize: 13,
+    color: '#4b5563',
+  },
+  addButton: {
+    marginTop: 12,
     alignSelf: 'flex-start',
     backgroundColor: '#ff6b35',
-    borderRadius: 10,
-    paddingVertical: 11,
-    paddingHorizontal: 20,
+    borderRadius: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
   },
-  buttonText: {
+  addButtonText: {
     color: '#fff',
+    fontWeight: '700',
+  },
+  quantityWrap: {
+    marginTop: 12,
+    alignSelf: 'flex-start',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    backgroundColor: '#fff4ef',
+    paddingHorizontal: 8,
+    paddingVertical: 6,
+    borderRadius: 8,
+  },
+  qtyButton: {
+    width: 28,
+    height: 28,
+    borderRadius: 6,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#ff6b35',
+  },
+  qtyButtonText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: '700',
+    lineHeight: 18,
+  },
+  qtyText: {
+    minWidth: 16,
+    textAlign: 'center',
+    fontWeight: '700',
+    color: '#111827',
+  },
+  cartButton: {
+    position: 'absolute',
+    left: 16,
+    right: 16,
+    bottom: 16,
+    backgroundColor: '#111827',
+    borderRadius: 12,
+    paddingVertical: 13,
+    alignItems: 'center',
+  },
+  cartButtonText: {
+    color: '#fff',
+    fontSize: 16,
     fontWeight: '700',
   },
 });
