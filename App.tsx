@@ -44,15 +44,28 @@
 
 import 'react-native-gesture-handler';
 
-import { NavigationContainer } from '@react-navigation/native';
+import { LinkingOptions, NavigationContainer } from '@react-navigation/native';
 import { CartProvider } from './src/context/CartContext';
+import { RootStackParamList } from './src/types/navigation';
 
 import RootStack from './src/navigation/RootStack';
+
+const linking: LinkingOptions<RootStackParamList> = {
+  prefixes: ['foodapp://'],
+  config: {
+    screens: {
+      Onboarding: 'onboarding',
+      HomeTabs: 'home',
+      RestaurantDetail: 'restaurant/:restaurantId',
+      Cart: 'cart',
+    },
+  },
+};
 
 export default function App() {
   return (
     <CartProvider>
-      <NavigationContainer>
+      <NavigationContainer linking={linking}>
         <RootStack />
       </NavigationContainer>
     </CartProvider>
