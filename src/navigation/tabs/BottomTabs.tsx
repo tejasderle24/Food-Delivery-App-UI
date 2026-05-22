@@ -18,6 +18,34 @@ export default function BottomTabs() {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         headerShown: false,
+        tabBarActiveTintColor: '#ff6b35',
+        tabBarInactiveTintColor: '#6b7280',
+        tabBarLabelStyle: {
+          fontSize: 12,
+          fontWeight: '600',
+          marginBottom: 4,
+        },
+        tabBarIconStyle: {
+          marginTop: 4,
+        },
+        tabBarStyle: {
+          position: 'absolute',
+          left: 14,
+          right: 14,
+          bottom: 14,
+          height: 66,
+          borderRadius: 14,
+          backgroundColor: '#ffffff',
+          borderTopWidth: 0,
+          elevation: 10,
+          shadowColor: '#111827',
+          shadowOpacity: 0.08,
+          shadowRadius: 12,
+          shadowOffset: {
+            width: 0,
+            height: 4,
+          },
+        },
 
         tabBarIcon: ({ focused, color, size }) => {
           const iconSet = TAB_ICONS[route.name];
@@ -41,6 +69,11 @@ export default function BottomTabs() {
         component={OrdersScreen}
         options={{
           tabBarBadge: totalItems > 0 ? totalItems : undefined,
+          tabBarBadgeStyle: {
+            backgroundColor: '#111827',
+            color: '#ffffff',
+            fontWeight: '700',
+          },
         }}
       />
 

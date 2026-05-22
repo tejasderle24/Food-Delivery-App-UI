@@ -1,23 +1,67 @@
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
+  drawerContent: {
+    flexGrow: 1,
+    paddingBottom: 20,
+  },
+
   profileSection: {
+    marginHorizontal: 16,
+    marginTop: 8,
+    marginBottom: 14,
+    borderRadius: 12,
+    backgroundColor: '#fff4ef',
+    borderWidth: 1,
+    borderColor: '#ffd7c8',
+    paddingHorizontal: 14,
+    paddingVertical: 14,
+    flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 24,
-    paddingHorizontal: 16,
-    paddingTop: 12,
+    gap: 12,
+  },
+
+  avatarWrap: {
+    borderRadius: 40,
+    borderWidth: 2,
+    borderColor: '#ffb79d',
+    padding: 2,
   },
 
   avatar: {
-    width: 72,
-    height: 72,
-    borderRadius: 36,
-    marginBottom: 10,
+    width: 58,
+    height: 58,
+    borderRadius: 29,
+  },
+
+  profileTextBlock: {
+    flex: 1,
   },
 
   name: {
-    fontSize: 18,
+    fontSize: 17,
     fontWeight: '700',
+    color: '#111827',
+  },
+
+  email: {
+    marginTop: 3,
+    fontSize: 13,
+    color: '#6b7280',
+  },
+
+  menuSection: {
+    marginTop: 4,
+  },
+
+  menuLabel: {
+    fontSize: 12,
+    fontWeight: '700',
+    color: '#9ca3af',
+    textTransform: 'uppercase',
+    letterSpacing: 0.2,
+    marginBottom: 6,
+    marginLeft: 20,
   },
 
   screenContainer: {
@@ -31,9 +75,29 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
 
-  logoutContainer: {
-    marginTop: 20,
+  footerSection: {
+    marginTop: 'auto',
+    paddingTop: 18,
     paddingHorizontal: 16,
+  },
+
+  supportButton: {
+    borderWidth: 1,
+    borderColor: '#ffd7c8',
+    backgroundColor: '#fff',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
+    paddingVertical: 10,
+    gap: 8,
+    marginBottom: 10,
+  },
+
+  supportText: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#ff6b35',
   },
 
   logoutButton: {
@@ -41,14 +105,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 12,
+    paddingVertical: 11,
     borderRadius: 10,
     gap: 8,
   },
 
   logoutText: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: '600',
   },
 });

@@ -99,6 +99,7 @@
 
 import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 
 
@@ -120,26 +121,67 @@ export default function ProfileDrawer() {
       )}
       screenOptions={{
         headerTitleAlign: 'center',
-        // headerShown:false
+        headerStyle: {
+          backgroundColor: '#ff6b35',
+        },
+        headerTintColor: '#ffffff',
+        headerTitleStyle: {
+          fontWeight: '700',
+          fontSize: 17,
+        },
+        drawerActiveBackgroundColor: '#fff4ef',
+        drawerActiveTintColor: '#ff6b35',
+        drawerInactiveTintColor: '#374151',
+        drawerLabelStyle: {
+          marginLeft: -12,
+          fontSize: 15,
+          fontWeight: '600',
+        },
+        drawerItemStyle: {
+          borderRadius: 10,
+          marginHorizontal: 10,
+          marginVertical: 2,
+          paddingHorizontal: 6,
+        },
       }}
     >
       <Drawer.Screen
         name="Profile"
         component={ProfileScreen}
+        options={{
+          drawerIcon: ({ color, size }) => (
+            <Ionicons name="person-outline" size={size} color={color} />
+          ),
+        }}
       />
       <Drawer.Screen
         name="My Orders"
         component={MyOrdersScreen}
+        options={{
+          drawerIcon: ({ color, size }) => (
+            <Ionicons name="receipt-outline" size={size} color={color} />
+          ),
+        }}
       />
 
       <Drawer.Screen
         name="Settings"
         component={SettingsScreen}
+        options={{
+          drawerIcon: ({ color, size }) => (
+            <Ionicons name="settings-outline" size={size} color={color} />
+          ),
+        }}
       />
 
       <Drawer.Screen
         name="Help & Support"
         component={HelpScreen}
+        options={{
+          drawerIcon: ({ color, size }) => (
+            <Ionicons name="help-circle-outline" size={size} color={color} />
+          ),
+        }}
       />
     </Drawer.Navigator>
   );

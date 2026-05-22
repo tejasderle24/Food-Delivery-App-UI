@@ -2,7 +2,6 @@ import React from 'react';
 import {
   DrawerContentComponentProps,
   DrawerContentScrollView,
-  DrawerItem,
   DrawerItemList,
 } from '@react-navigation/drawer';
 
@@ -26,33 +25,63 @@ export default function CustomDrawerContent(
   };
 
   return (
-    <DrawerContentScrollView {...props}>
+    <DrawerContentScrollView
+      {...props}
+      contentContainerStyle={styles.drawerContent}
+      showsVerticalScrollIndicator={false}
+    >
       <View style={styles.profileSection}>
-        <Image
-          source={{
-            uri: 'https://i.pravatar.cc/120?img=12',
-          }}
-          style={styles.avatar}
-        />
+        <View style={styles.avatarWrap}>
+          <Image
+            source={{
+              uri: 'https://i.pravatar.cc/120?img=12',
+            }}
+            style={styles.avatar}
+          />
+        </View>
 
-        <Text style={styles.name}>
-          Tejas Kumar
-        </Text>
+        <View style={styles.profileTextBlock}>
+          <Text style={styles.name}>
+            Tejas Kumar
+          </Text>
+          <Text style={styles.email}>
+            tejas@foodapp.dev
+          </Text>
+        </View>
       </View>
 
-      <DrawerItemList {...props} />
+      <View style={styles.menuSection}>
+        <Text style={styles.menuLabel}>
+          Menu
+        </Text>
+        <DrawerItemList {...props} />
+      </View>
 
-      <View style={styles.logoutContainer}>
+      <View style={styles.footerSection}>
+        <TouchableOpacity
+          style={styles.supportButton}
+          activeOpacity={0.85}
+        >
+          <Ionicons
+            name="call-outline"
+            size={18}
+            color="#ff6b35"
+          />
+          <Text style={styles.supportText}>
+            24/7 Support
+          </Text>
+        </TouchableOpacity>
+
         <TouchableOpacity
           style={styles.logoutButton}
           onPress={handleLogout}
+          activeOpacity={0.88}
         >
           <Ionicons
             name="log-out-outline"
-            size={22}
+            size={20}
             color="#fff"
           />
-
           <Text style={styles.logoutText}>
             Logout
           </Text>
