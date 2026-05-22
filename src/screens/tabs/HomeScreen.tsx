@@ -4,6 +4,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { FlatList, Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import { Restaurant, restaurants } from '../../data/restaurants';
 import { RootStackParamList } from '../../types/navigation';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 type HomeNavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
@@ -43,7 +44,7 @@ export default function HomeScreen() {
   const navigation = useNavigation<HomeNavigationProp>();
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.heading}>Discover Restaurants</Text>
         <Text style={styles.subheading}>Fast delivery, top-rated places near you</Text>
@@ -63,7 +64,7 @@ export default function HomeScreen() {
           />
         )}
       />
-    </View>
+    </SafeAreaView>
   );
 }
 

@@ -27,8 +27,8 @@ export default function ProfileScreen() {
           </TouchableOpacity>
         </View>
 
-        <Text style={styles.userName}>Alex Johnson</Text>
-        <Text style={styles.userEmail}>alex.j@example.com</Text>
+        <Text style={styles.userName}>Tejas Derle</Text>
+        <Text style={styles.userEmail}>tejas.derle@gmail.com</Text>
 
         {/* PREMIUM TAG */}
         <View style={styles.premiumBadgeContainer}>

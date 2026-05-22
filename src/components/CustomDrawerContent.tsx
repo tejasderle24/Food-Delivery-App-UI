@@ -42,10 +42,10 @@ export default function CustomDrawerContent(
 
         <View style={styles.profileTextBlock}>
           <Text style={styles.name}>
-            Tejas Kumar
+            Tejas Derkke
           </Text>
           <Text style={styles.email}>
-            tejas@foodapp.dev
+            tejas.derle@gmail.com
           </Text>
         </View>
       </View>
